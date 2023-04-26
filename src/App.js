@@ -1,7 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+import logo from './assets/logo.svg';
+import './assets/App.css';
+import Input from './components/Input';
+import './assets/all.scss'
 
 function App() {
+  const [text,setText] = useState('');
+
+  const onChangeHandler = (e) =>{
+    setText(e.target.value)
+  }
+
+  useEffect(() =>{
+    (async() => {     
+      const path = process.env.REACT_APP_PATH;
+      const result = await axios.get(path);
+      console.log(result)
+      console.log(crypto.randomUUID())
+    })()
+  },[])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +37,11 @@ function App() {
         >
           Learn React
         </a>
+        <button type="button" className="btn btn-primary">Primary</button>
+        {text}
+        <Input id="sampleText" text="這是一個 input"
+          value={text} onChangeHandler={onChangeHandler}
+        ></Input>
       </header>
     </div>
   );
